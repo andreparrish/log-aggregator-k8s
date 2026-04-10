@@ -17,3 +17,4 @@ aggregator
 
 # K8s local state
 .kind/
+aggregator
