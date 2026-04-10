@@ -1,0 +1,19 @@
+# Binaries
+*.exe
+*.out
+aggregator
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Docker
+.docker/
+
+# Local env files
+.env
+.env.local
+
+# K8s local state
+.kind/
