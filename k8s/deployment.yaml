@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-aggregator
+  labels:
+    app: log-aggregator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: log-aggregator
+  template:
+    metadata:
+      labels:
+        app: log-aggregator
+    spec:
+      containers:
+      - name: aggregator
+        image: log-aggregator:latest
+        imagePullPolicy: Never
+        env:
+        - name: ERROR_PATTERN
+          valueFrom:
+            configMapKeyRef:
+              name: aggregator-config
+              key: ERROR_PATTERN
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /dev/null
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /dev/null
+          initialDelaySeconds: 2
+          periodSeconds: 5

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: log-aggregator-svc
+spec:
+  selector:
+    app: log-aggregator
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
